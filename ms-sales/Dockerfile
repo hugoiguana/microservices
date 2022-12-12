@@ -1,0 +1,12 @@
+FROM openjdk:17-alpine
+
+
+ARG JAR_NAME=ms-sales-0.0.1-SNAPSHOT
+ENV JAR_NAME_ENV=${JAR_NAME}
+
+WORKDIR /app
+COPY . .
+RUN ./mvnw clean package -Dmaven.test.skip=true
+
+EXPOSE 8080
+ENTRYPOINT ["java","-jar", "target/ms-sales-0.0.1-SNAPSHOT.jar"]
