@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Builder;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,6 +29,9 @@ public class ProductEntity extends AbstractPersistentEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
 
     @PrePersist
     public void prePersist() {

@@ -1,0 +1,15 @@
+
+
+# Get all products
+curl --request GET --url http://localhost:8081/ms-sales/products --header 'Content-Type: application/json'
+
+
+# Create a Product
+curl --request POST \
+  --url http://localhost:8081/ms-sales/products \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "TV",
+    "description": "TV samsung 42",
+	"price": "12000.25"
+}'

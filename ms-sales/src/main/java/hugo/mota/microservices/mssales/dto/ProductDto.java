@@ -9,11 +9,13 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class ProductDto {
 
     private UUID id;
     private String name;
-
+    private String description;
     private BigDecimal price;
 
 }

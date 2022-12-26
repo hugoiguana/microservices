@@ -52,7 +52,8 @@ services:
         - JAR_NAME=ms-sales-0.0.1-SNAPSHOT
     container_name: ms-sales
     environment:
-      - DB_URL=value
+      - APP_PORT=8081
+      - DB_URL=jdbc:postgresql://db-ms-sales:5432/sales
       - DB_USERNAME=$ENV_DB_MS_SALES_POSTGRES_USER
       - DB_PASSWORD=$ENV_DB_MS_SALES_POSTGRES_PASSWORD
     ports:
