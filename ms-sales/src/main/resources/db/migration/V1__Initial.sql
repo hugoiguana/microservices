@@ -1,6 +1,6 @@
 
 
-CREATE SCHEMA sales;
+CREATE SCHEMA IF NOT EXISTS sales;
 
 CREATE TABLE sales.product
 (
