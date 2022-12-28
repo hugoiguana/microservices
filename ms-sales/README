@@ -1,4 +1,12 @@
 
 
+# Makefile:
+make start
+make stop
+make clean
+
+
 # Docker compose:
 docker compose up -d --build
+docker logs ms-sales
+docker logs ms-sales -f
