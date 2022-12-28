@@ -1,8 +1,14 @@
-start_apps:
+start:
 	@echo "Starting apps"
-	chmod 777 sql/ms-sales/config-db.sh
-	docker compose up -d db-ms-sales --build
+	chmod 777 ms-sales/db/scripts/config-db.sh
+	chmod 777 mvnw
+	./mvnw clean package -f ms-sales/pom.xml
+	docker compose up -d --build
 
-clean_apps:
-		docker compose down
-		docker volume rm db-ms-sales
+
+stop:
+	docker compose stop
+
+clean:
+	docker compose down
+	docker volume rm db-ms-sales
