@@ -34,7 +34,7 @@ services:
   db-ms-sales:
     image: postgres
     restart: always
-    container_name: db-ms-sales    
+    container_name: db-ms-sales
     environment:
       POSTGRES_DB: $ENV_DB_MS_SALES_POSTGRES_DB
       POSTGRES_USER: $ENV_DB_MS_SALES_POSTGRES_USER
@@ -42,6 +42,7 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - ./sql/ms-sales/:/docker-entrypoint-initdb.d
       - db-ms-sales:/var/lib/postgresql/data
 
 
