@@ -10,5 +10,9 @@ CREATE TABLE sales.category
 );
 
 
+--insert into sales.category(id, name, description, dt_criation, dt_modification)
+--values(uuid_generate_v4(), lower('smartphones'), 'Smartphones', current_timestamp, current_timestamp);
+
 insert into sales.category(id, name, description, dt_criation, dt_modification)
-values(uuid_generate_v4(), lower('smartphones'), 'Smartphones', current_timestamp, current_timestamp);
+values('5472f957-8d95-4e4f-a084-8cd9193b1fd0', lower('smartphones'), 'Smartphones', current_timestamp, current_timestamp);
+

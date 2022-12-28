@@ -6,6 +6,7 @@ import hugo.mota.microservices.mssales.mapper.ProductMapper;
 import hugo.mota.microservices.mssales.service.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,9 @@ public class ProductController {
     public ResponseEntity<ProductDto> create(@RequestBody ProductDto dto) {
         log.info("Create a product");
         ProductEntity entity = mapper.toEntity(dto);
-        dto = mapper.toDto(service.create(entity));
+        entity = service.create(entity);
+        dto = mapper.toDto(entity);
 
-        return ResponseEntity.of(Optional.of(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 }
