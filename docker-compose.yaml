@@ -2,35 +2,6 @@ version: '3.9'
 
 services:
 
-  # nexus:
-  #   image: sonatype/nexus3
-  #   container_name: devops-nexus
-  #   restart: on-failure
-  #   #restart: always
-  #   #ports:
-  #   #  - 8081:8081
-  #   #  - '8083:8083'
-  #   volumes:
-  #     - "/home/$USER/projects/devops/docker/nexus/volumes/nexus-data/_data:/nexus-data/"
-  #     - "/home/$USER/projects/devops/docker/nexus/volumes/sonatype-work/_data:/app/sonatype-work"
-  #   networks:
-  #     - devops-network
-
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   container_name: devops-nginx 
-  #   command: [nginx, '-g', 'daemon off;']
-  #   restart: on-failure
-  #   ports:
-  #     - '444:444'
-  #     - '445:445'
-  #     - '446:446'      
-  #   networks:
-  #     - devops-network
-  #   depends_on:
-  #     - nexus
-
   db-ms-sales:
     image: postgres
     restart: always
@@ -44,7 +15,21 @@ services:
     volumes:
       - ./ms-sales/db/scripts/:/docker-entrypoint-initdb.d
       - db-ms-sales:/var/lib/postgresql/data
+    networks:
+      - microservices-network
 
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    command: [ nginx, '-g', 'daemon off;' ]
+    restart: on-failure
+    ports:
+      - '80:80'
+    #volumes:
+      #- ./nginx/:/etc/nginx
+    networks:
+      - microservices-network
 
   ms-sales:      
     build: 
@@ -58,8 +43,10 @@ services:
       - DB_USERNAME=$ENV_DB_MS_SALES_POSTGRES_USER
       - DB_PASSWORD=$ENV_DB_MS_SALES_POSTGRES_PASSWORD
       - ACTIVE_PROFILE=prod
-    ports:
-      - 8081:8080
+    #ports:
+     # - 8081:8080
+    networks:
+      - microservices-network
     depends_on:
       - db-ms-sales
 

@@ -1,6 +1,7 @@
 
 
 # Get all products
+curl --request GET --url http://localhost/api/ms-sales/products --header 'Content-Type: application/json'
 curl --request GET --url http://localhost:8081/ms-sales/products --header 'Content-Type: application/json'
 
 
@@ -11,5 +12,5 @@ curl --request POST \
   --data '{
     "name": "TV",
     "description": "TV samsung 42",
-	"price": "12000.25"
+	"price": "1200.25"
 }'
