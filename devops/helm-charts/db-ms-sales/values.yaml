@@ -1,0 +1,36 @@
+service:
+  type: NodePort
+  #type: ClusterIP
+  port: 5432
+  nodePort: 30951
+
+
+volume:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes: ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+
+deployment:
+  replicas: 1
+  image: postgres:15.1
+  imagePullPolicy: "IfNotPresent"
+  envFrom:
+  - configMapRef:
+      name: credentials-configmap
+  volumeMounts:
+  - name: vl-db-init-script
+    mountPath: "/docker-entrypoint-initdb.d"
+  - name: vl-db-data
+    mountPath: "/var/lib/postgresql/data"
+  volumes:
+  - name: vl-db-init-script
+    configMap:
+      name: db-init-script-configmap
+  - name: vl-db-data
+    persistentVolumeClaim:
+      claimName: db-ms-sales
+
+

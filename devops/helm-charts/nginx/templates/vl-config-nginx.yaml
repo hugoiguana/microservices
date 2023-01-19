@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vl-config-nginx-configmap
+  labels:
+    app: {{.Release.Name }}
+data:
+  nginx.conf: |
+    events {
+    }
+    
+    http {
+  
+      proxy_send_timeout        120;
+      proxy_read_timeout        300;
+      proxy_buffering           off;
+      keepalive_timeout         5 5;
+      tcp_nodelay               on;
+      client_max_body_size      0;
+    
+      #ssl                       on;
+      # Inbound private Certificate: Config certificate, certificate Key and certificatee CA.
+      #ssl_certificate           /etc/nginx/external/customerx.crt;
+      #ssl_certificate_key       /etc/nginx/external/customerx.pem;
+      #ssl_client_certificate  /etc/nginx/external/customerxCA.pem;
+      #ssl_verify_client on;
+    
+      server {
+        listen 80 default_server;
+        server_name _;
+        
+        location / {
+          return 200 'Nginx gateway :)';
+        }
+        
+      }
+    }    

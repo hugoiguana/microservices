@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{.Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name }}
+    spec:
+      containers:
+        - name: {{.Release.Name }}
+          image: {{ .Values.deployment.image }}
+          imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          envFrom:
+{{ toYaml .Values.deployment.envFrom | indent 12 }}
+          volumeMounts:
+{{ toYaml .Values.deployment.volumeMounts | indent 12 }}
+      volumes:
+{{ toYaml .Values.deployment.volumes | indent 8 }}

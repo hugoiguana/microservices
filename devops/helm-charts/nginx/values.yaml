@@ -1,0 +1,19 @@
+service:
+  type: NodePort
+  #type: ClusterIP
+  port: 80
+  nodePort: 30950
+
+deployment:
+  replicas: 1
+  image: nginx:alpine
+  imagePullPolicy: "IfNotPresent"
+  volumeMounts:
+  - name: vl-config-nginx
+    mountPath: "/etc/nginx"
+  volumes:
+  - name: vl-config-nginx
+    configMap:
+      name: vl-config-nginx-configmap
+
+
